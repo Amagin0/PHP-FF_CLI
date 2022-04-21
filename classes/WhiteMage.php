@@ -15,9 +15,9 @@ class WhiteMage extends Human
   public function doAttackWhiteMage($enemy, $human)
   {
     if (rand(1,2) === 1) {
-      echo "『" . $this->getName() . "』のスキルが発動した！！\n"
-      echo "『ケアル』！！\n"
-      echo $human->getName() . "のHPを" . $this->intelligence * 1.5 . "回復した！\n"
+      echo "『" . $this->getName() . "』のスキルが発動した！！\n";
+      echo "『ケアル』！！\n";
+      echo $human->getName() . "のHPを" . $this->intelligence * 1.5 . "回復した！\n";
       $human->recoveryDamage($this->intelligence * 1.5, $human);
     } else {
       parent::doAttack($enemy);

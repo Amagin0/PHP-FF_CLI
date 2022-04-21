@@ -19,6 +19,11 @@ class Brave extends Human
   /* オーバーライド */
   public function doAttack($enemy)  
   {
+    /* チェック１：自身のHPが0かどうか */
+    if($this->getHitPoint() <= 0) {
+      return false;
+    }
+    
     /* 乱数の発生 */
     if(rand(1,3) === 1) {
       /* スキルの発動 */

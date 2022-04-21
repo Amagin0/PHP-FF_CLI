@@ -23,8 +23,10 @@ $enemies[] = new Enemy("モルボル", 30);
 
 $turn = 1;
 
+$isFinishFlg = false;
+
 /* どちらかのHPが0になるまで繰り返す */
-while ($member->getHitPoint() > 0 && $enemy->getHitPoint() > 0) {
+while(!$isFinishFlg) {
   /* ターン数の表示 */
   echo "*** $turn ターン目 *** \n\n";
   
@@ -41,7 +43,7 @@ while ($member->getHitPoint() > 0 && $enemy->getHitPoint() > 0) {
   // constで定義したものはオブジェクト定数
   // オブジェクト定数は "::" で参照するため "$member::MAX_HITPOINT" と呼び出す
   
-  /* 攻撃 */
+  /* プレイヤー側の攻撃 */
   foreach($members as $member) {
     $enemyIndex = rand(0, count($enemies) - 1);
     $enemy = $enemies[$enemyIndex];
@@ -52,14 +54,65 @@ while ($member->getHitPoint() > 0 && $enemy->getHitPoint() > 0) {
       $member->doAttack($enemy);
     }
   }
+  /**
+   * foreach で $members 配列から $member を取り出す
+   * $enemyIndex を乱数から決定(添字は0から始まるので、-1する)
+   * $enemies 配列から対象の $enemy を取り出す
+   * もし、$member が WhiteMageクラスだった場合、doAttackWhiteMageメソッドを呼ぶ
+   * もし、$member が WhiteMageクラスじゃない場合、doAttackメソッドを呼ぶ
+   * 以降、上記の繰り返し
+  */
   
-  $enemy->doAttack($member);
-  echo "\n";
+  /* エネミー側の攻撃 */
+  foreach($enemies as $enemy) {
+    $memberIndex = rand(0, count($members) -1);
+    $member = $members[$memberIndex];
+    $enemy->doAttack($member);
+    echo "\n";
+  }
+  
+  /* プレイヤーの全滅チェック */
+  $deathCnt = 0; // death count...HPが0以下の仲間の数
+  foreach($members as $member) {
+    if($member->getHitPoint() > 0) {
+      $isFinishFlg = false;
+      break;
+    }
+    $deathCnt++;
+  }
+  
+  if($deathCnt === count($members)) {
+    $isFinishFlg = true;
+    echo "GAME OVER .....\n\n";
+    break;
+  }
+  
+  /* エネミーの全滅チェック */
+  $deathCnt = 0;
+  foreach($enemies as $enemy) {
+    if($enemy->getHitPoint() > 0) {
+      $isFinishFlg = false;
+      break;
+    }
+    $deathCnt++;
+  }
+  
+  if($deathCnt === count($enemies)) {
+    $isFinishFlg = true;
+    echo "♪♪♪ファンファーレ♪♪♪\n\n";
+    break;
+  }
   
   $turn++;
-  
 }
 
 echo "<<<戦闘終了！>>>\n\n";
-echo $member->getName() . "  :  " . $member->getHitPoint() . "/" . $member::MAX_HITPOINT . "\n";  
-echo $enemy->getName() . "  :  " . $enemy->getHitPoint() . "/" . $enemy::MAX_HITPOINT . "\n\n";
+
+foreach($members as $member) {
+  echo $member->getName() . "  :  " . $member->getHitPoint() . "/" . $member::MAX_HITPOINT . "\n";  
+}
+echo "\n";
+
+foreach($enemies as $enemy) {
+  echo $enemy->getName() . "  :  " . $enemy->getHitPoint() . "/" . $enemy::MAX_HITPOINT . "\n\n";
+}
