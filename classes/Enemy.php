@@ -1,54 +1,54 @@
 <?php
 
-class Enemy
+class Enemy extends Lives
 {
   const MAX_HITPOINT = 50;
-  private $name;
-  private $hitPoint = 50;
-  private $attackPoint = 10;
-  
+
   public function __construct($name, $attackPoint)
   {
-    $this->name = $name;
-    $this->attackPoint = $attackPoint;
+    $hitPoint = 50;
+    $inteligence = 0;
+    parent::__construct($name, $hitPoint, $attackPoint, $inteligence);
   }
 
-  public function getName()
-  {
-    return $this->name;
-  }
+  /* 以下すべてLivesクラスから継承 */
 
-  public function getHitPoint()
-  {
-    return $this->hitPoint;
-  }
+  // public function getName()
+  // {
+  //   return $this->name;
+  // }
 
-  public function getAttackPoint()
-  {
-    return $this->attackPoint;
-  }
+  // public function getHitPoint()
+  // {
+  //   return $this->hitPoint;
+  // }
 
-  public function doAttack($humans)
-  {
-    /* チェック１：自身のHPが0かどうか */
-    if($this->getHitPoint() <= 0) {
-      return false;
-    }
+  // public function getAttackPoint()
+  // {
+  //   return $this->attackPoint;
+  // }
+
+  // public function doAttack($humans)
+  // {
+  //   /* チェック１：自身のHPが0かどうか */
+  //   if($this->getHitPoint() <= 0) {
+  //     return false;
+  //   }
     
-    $humanIndex = rand(0, count($humans) -1);
-    $human = $humans[$humanIndex];
+  //   $humanIndex = rand(0, count($humans) -1);
+  //   $human = $humans[$humanIndex];
 
-    echo "『" . $this->getName() . "』の攻撃！\n";   // $this = 自分自身のクラス = Enemyクラス
-    echo "【" . $human->getName() . "】に" . $this->attackPoint . "のダメージ！\n";
-    $human->tookDamage($this->attackPoint);
-  }
+  //   echo "『" . $this->getName() . "』の攻撃！\n";   // $this = 自分自身のクラス = Enemyクラス
+  //   echo "【" . $human->getName() . "】に" . $this->attackPoint . "のダメージ！\n";
+  //   $human->tookDamage($this->attackPoint);
+  // }
 
-  public function tookDamage($damage)
-  {
-    $this->hitPoint -= $damage;
-    // HPがマイナスにならない為の処理
-    if ($this->hitPoint < 0) {
-        $this->hitPoint = 0;
-    }
-  }
+  // public function tookDamage($damage)
+  // {
+  //   $this->hitPoint -= $damage;
+  //   // HPがマイナスにならない為の処理
+  //   if ($this->hitPoint < 0) {
+  //       $this->hitPoint = 0;
+  //   }
+  // }
 }

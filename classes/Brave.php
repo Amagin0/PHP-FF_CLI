@@ -19,13 +19,23 @@ class Brave extends Human
   /* オーバーライド */
   public function doAttack($enemies)  
   {
-    /* チェック１：自身のHPが0かどうか */
-    if($this->getHitPoint() <= 0) {
+    /* 自分のHPが0以上か、敵のHPが0以上かなどをチェックするメソッドを用意 */
+    if (!$this->isEnableAttack($enemies)) {
       return false;
     }
     
-    $enemyIndex = rand(0, count($enemies) -1);
-    $enemy = $enemies[$enemyIndex];
+    /* ターゲットの決定 */
+    $enemy = $this->selectTarget($enemies);
+    
+    /* Livesクラスから継承*/
+
+    // /* チェック１：自身のHPが0かどうか */
+    // if($this->getHitPoint() <= 0) {
+    //   return false;
+    // }
+    
+    // $enemyIndex = rand(0, count($enemies) -1);
+    // $enemy = $enemies[$enemyIndex];
 
     
     /* 乱数の発生 */
