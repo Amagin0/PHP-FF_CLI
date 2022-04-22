@@ -9,18 +9,19 @@ $loader = new Loader();
 
 /* classesフォルダの中身をロード対象ディレクトリとして登録 */
 $loader->regDirectory(__DIR__ . '/classes');
+$loader->regDirectory(__DIR__ . '/classes/constants');
 $loader->register();
 
 /* インスタンス化 */
 $members = array();
-$members[] = new Brave("勇者");
-$members[] = new BlackMage("黒魔術師");
-$members[] = new WhiteMage("白魔導士");
+$members[] = new Brave(CharacterName::BRAVE);
+$members[] = new BlackMage(CharacterName::BLACK_MAGE);
+$members[] = new WhiteMage(CharacterName::WHITE_MAGE);
 
 $enemies = array();
-$enemies[] = new Enemy("ゴブリン", 20);
-$enemies[] = new Enemy("ボム", 25);
-$enemies[] = new Enemy("モルボル", 30);
+$enemies[] = new Enemy(EnemyName::GOBLINS, 20);
+$enemies[] = new Enemy(EnemyName::BOMB, 25);
+$enemies[] = new Enemy(EnemyName::MORBOL, 30);
 
 // $member->name = "勇者";
 // $enemy->name = "ゴブリン";
