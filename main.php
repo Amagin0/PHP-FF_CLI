@@ -2,6 +2,7 @@
 
 /* ファイルのロード */
 require_once('./lib/Loader.php');
+require_once('./lib/Utility.php');
 
 /* オートロード */
 $loader = new Loader();
@@ -30,22 +31,24 @@ $isFinishFlg = false;
 
 $messageObj = new Message;
 
-/* 終了条件の判定 */
-function isFinish($objects)
-{
-  $deathCnt = 0; // death count...HPが0以下の仲間の数
-  foreach($objects as $object) {
-  /* １人でもHPが0を超えていたらfalseを返す */
-    if ($object->getHitPoint() > 0) {
-      return false;
-    }
-    $deathCnt++;
-  }
-  /* 仲間の数と死亡数が同じならtrueを返す */
-  if ($deathCnt === count($objects)) {
-    return true;
-  }
-}
+/* ユーティリティファイルへ移動(Utility.php)*/
+// /* 終了条件の判定 */
+// function isFinish($objects)
+// {
+//   $deathCnt = 0; // death count...HPが0以下の仲間の数
+//   foreach($objects as $object) {
+//   /* １人でもHPが0を超えていたらfalseを返す */
+//     if ($object->getHitPoint() > 0) {
+//       return false;
+//     }
+//     $deathCnt++;
+//   }
+//   /* 仲間の数と死亡数が同じならtrueを返す */
+//   if ($deathCnt === count($objects)) {
+//     return true;
+//   }
+// }
+
 
 /* どちらかのHPが0になるまで繰り返す */
 while(!$isFinishFlg) {
