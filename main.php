@@ -14,7 +14,7 @@ $loader->register();
 
 /* インスタンス化 */
 $members = array();
-$members[] = new Brave(CharacterName::BRAVE);
+$members[] = Brave::getInstance(CharacterName::BRAVE);
 $members[] = new BlackMage(CharacterName::BLACK_MAGE);
 $members[] = new WhiteMage(CharacterName::WHITE_MAGE);
 
